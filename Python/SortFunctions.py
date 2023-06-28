@@ -1,5 +1,5 @@
-from time import time
 import copy
+from timeit import default_timer as timer
 
 def insertionSort(toSort, n):
     for i in range(1, n):
@@ -72,21 +72,39 @@ def callQuickSort(toSort,n):
     quickSort(toSort, low, high)
 
 def timeSortFunction(function,toSort,arrayLength):
-    print(toSort)
-    start = time()
+    start = timer()
     function(toSort,arrayLength)
-    elapsedTime = time() - start
-    print(toSort)
-    print(str(function) + " finished in " + str(elapsedTime) + " seconds")
+    elapsedTime = timer() - start
+    print(str(function) + "Finished in " + str(elapsedTime) + " seconds")
+
+def testSortFunction(function,toSort,arrayLength,expected):
+    function(toSort,arrayLength)
+    if expected == toSort:
+        print(str(function) + " correctly sorted")
+    else:
+        print(str(function) + " sorting failed")
+
+def testSorts():
+    expected = [1,2,3,4,5,6,7,8,9,10]
+    toSort = [6,4,2,10,1,9,3,8,5,7]
+    testSortFunction(insertionSort, copy.copy(toSort), len(toSort),expected)
+    testSortFunction(selectionSort, copy.copy(toSort), len(toSort),expected)
+    testSortFunction(mergeSort, copy.copy(toSort), len(toSort),expected)
+    testSortFunction(callQuickSort, copy.copy(toSort), len(toSort),expected)
 
 def main():
-    arrayToSort = [18, 12, 23, 21, 17, 48, 2, 48, 38, 35, 35, 13, 40, 49, 29, 35, 4, 45, 12, 48]
+    testSorts()
 
-    print("Starting")
-    timeSortFunction(insertionSort, copy.copy(arrayToSort), len(arrayToSort))
-    timeSortFunction(selectionSort, copy.copy(arrayToSort), len(arrayToSort))
-    timeSortFunction(mergeSort, copy.copy(arrayToSort), len(arrayToSort))
-    timeSortFunction(callQuickSort, copy.copy(arrayToSort), len(arrayToSort))
-    print("Finished")
+    arrayToSortLong = [35, 110, 48, 131, 152, 40, 112, 3, 100, 139
+        , 179, 27, 16, 10, 182, 24, 86, 54, 19, 156
+        , 101, 61, 56, 68, 155, 59, 121, 136, 145, 151
+        , 122, 47, 130, 39, 116, 146, 137, 78, 28, 192
+        , 25, 143, 9, 199, 45, 17, 63, 181, 89, 83 ]
+
+    timeSortFunction(insertionSort, copy.copy(arrayToSortLong), len(arrayToSortLong))
+    timeSortFunction(selectionSort, copy.copy(arrayToSortLong), len(arrayToSortLong))
+    timeSortFunction(mergeSort, copy.copy(arrayToSortLong), len(arrayToSortLong))
+    timeSortFunction(callQuickSort, copy.copy(arrayToSortLong), len(arrayToSortLong))
+
 
 main()
