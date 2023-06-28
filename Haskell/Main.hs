@@ -1,37 +1,34 @@
 module Main (main) where
 import Lib (insertionSort,selectionSort,selectionSort2,mergeSort,quickSort)
+import Criterion.Main
 
 main :: IO ()
-main = do
-    let toSort = [18, 12, 23, 21, 17, 48, 2, 48, 38, 35, 35, 13, 40, 49, 29, 35, 4, 45, 12, 48,8]
-
-    print "Start sorting."
-
-    print "Selection sorting:"
-    print toSort
-    let selectionSorted = selectionSort toSort
-    print selectionSorted
-
-    print "Selection sorting2:"
-    print toSort
-    let selectionSorted2 = selectionSort2 toSort
-    print selectionSorted2
-
-    print "Insertion sorting:"
-    print toSort
-    let insertionSorted = insertionSort toSort
-    print insertionSorted
-
-    print "Quick sorting:"
-    print toSort
-    let quickSorted = quickSort toSort
-    print quickSorted
-
-    print "Merge sorting:"
-    print toSort
-    let mergeSorted = mergeSort toSort
-    print mergeSorted
-
-    print "Sorting done."
+main = defaultMain[   
+    bgroup "Sorts" [ bench "InsertionSort" $ whnf insertionSort [35, 110, 48, 131, 152, 40, 112, 3, 100, 139
+                            , 179, 27, 16, 10, 182, 24, 86, 54, 19, 156
+                            , 101, 61, 56, 68, 155, 59, 121, 136, 145, 151
+                            , 122, 47, 130, 39, 116, 146, 137, 78, 28, 192
+                            , 25, 143, 9, 199, 45, 17, 63, 181, 89, 83 ]
+                   , bench "SelectionSort" $ whnf selectionSort [35, 110, 48, 131, 152, 40, 112, 3, 100, 139
+                            , 179, 27, 16, 10, 182, 24, 86, 54, 19, 156
+                            , 101, 61, 56, 68, 155, 59, 121, 136, 145, 151
+                            , 122, 47, 130, 39, 116, 146, 137, 78, 28, 192
+                            , 25, 143, 9, 199, 45, 17, 63, 181, 89, 83 ]
+                   , bench "SelectionSort2" $ whnf selectionSort2 [35, 110, 48, 131, 152, 40, 112, 3, 100, 139
+                            , 179, 27, 16, 10, 182, 24, 86, 54, 19, 156
+                            , 101, 61, 56, 68, 155, 59, 121, 136, 145, 151
+                            , 122, 47, 130, 39, 116, 146, 137, 78, 28, 192
+                            , 25, 143, 9, 199, 45, 17, 63, 181, 89, 83 ]
+                   , bench "MergeSort" $ whnf mergeSort [35, 110, 48, 131, 152, 40, 112, 3, 100, 139
+                            , 179, 27, 16, 10, 182, 24, 86, 54, 19, 156
+                            , 101, 61, 56, 68, 155, 59, 121, 136, 145, 151
+                            , 122, 47, 130, 39, 116, 146, 137, 78, 28, 192
+                            , 25, 143, 9, 199, 45, 17, 63, 181, 89, 83 ]
+                   , bench "QuickSort" $ whnf quickSort [35, 110, 48, 131, 152, 40, 112, 3, 100, 139
+                            , 179, 27, 16, 10, 182, 24, 86, 54, 19, 156
+                            , 101, 61, 56, 68, 155, 59, 121, 136, 145, 151
+                            , 122, 47, 130, 39, 116, 146, 137, 78, 28, 192
+                            , 25, 143, 9, 199, 45, 17, 63, 181, 89, 83 ]
+    ]]
 
 

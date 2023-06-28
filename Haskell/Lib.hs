@@ -52,7 +52,8 @@ selectionSort [] = []
 selectionSort [x] = [x]
 selectionSort (x:xs) = if indexOfNumber x (x:xs) == indexOfLowest (x:xs)
                              then x : selectionSort xs
-                             else selectionSort (swapNumbers (indexOfNumber x (x:xs)) (indexOfLowest (x:xs)) (x:xs))
+                             else y : selectionSort ys where 
+                                y:ys = swapNumbers (indexOfNumber x (x:xs)) (indexOfLowest (x:xs)) (x:xs)
 
 selectionSort2 :: [Int] -> [Int]
 selectionSort2 [] = []
@@ -60,7 +61,6 @@ selectionSort2 [x] = [x]
 selectionSort2 list = lowestNumList ++ selectionSort2 listMinusLowest
                         where lowestNumList = [y | y<-list, y == findLowestNumber list]
                               listMinusLowest = [y |y<-list, y /= findLowestNumber list]
-
 
 splitList :: [Int] -> ([Int],[Int])
 splitList list
